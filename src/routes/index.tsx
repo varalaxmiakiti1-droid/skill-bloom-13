@@ -1,24 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, BookOpen, GraduationCap, Handshake, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+export const Route = createFileRoute("/")({ head: () => ({ meta: [{ title: "SkillSwap — Learn from your campus" }, { name: "description", content: "A student skill exchange for teaching what you know and learning what you need." }, { property: "og:title", content: "SkillSwap — Learn from your campus" }, { property: "og:description", content: "Trade skills with students across your college community." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: Home });
+function Home() { return <main className="min-h-screen overflow-hidden bg-background"><nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8"><div className="flex items-center gap-3 text-lg font-bold"><span className="grid h-10 w-10 place-items-center rounded-md bg-primary text-primary-foreground">S</span>SkillSwap</div><Button asChild><Link to="/auth">Join your campus <ArrowRight /></Link></Button></nav><section className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl items-center gap-12 px-5 pb-16 pt-10 sm:px-8 lg:grid-cols-[1.1fr_.9fr]"><div><span className="inline-flex items-center gap-2 rounded-full bg-primary-soft px-3 py-1 text-sm font-semibold text-primary"><GraduationCap className="h-4 w-4" />Made for college communities</span><h1 className="mt-7 max-w-3xl text-5xl font-bold leading-[1.05] text-foreground sm:text-6xl lg:text-7xl">Learn something useful. Teach something you love.</h1><p className="mt-6 max-w-xl text-lg leading-8 text-muted-foreground">Find students across campus, exchange practical skills, and turn shared knowledge into real connections.</p><div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/auth">Start exchanging <ArrowRight /></Link></Button><Button asChild variant="outline" size="lg"><Link to="/auth">Sign in</Link></Button></div></div><div className="relative grid gap-4 sm:grid-cols-2"><div className="col-span-full rounded-lg border bg-card p-7 shadow-elevated"><Users className="h-8 w-8 text-primary" /><h2 className="mt-8 text-2xl font-bold">A better way to meet your campus.</h2><p className="mt-3 text-muted-foreground">Search skills, connect with the right student, and track every exchange in one place.</p></div>{[{ icon: BookOpen, label: "Learn", text: "Python, design, languages, and more" }, { icon: Handshake, label: "Exchange", text: "Simple requests and clear progress" }].map(({ icon: Icon, label, text }) => <div key={label} className="rounded-lg border bg-card p-5 shadow-soft"><Icon className="h-6 w-6 text-accent-foreground" /><h3 className="mt-5 font-bold">{label}</h3><p className="mt-1 text-sm text-muted-foreground">{text}</p></div>)}</div></section></main>; }
